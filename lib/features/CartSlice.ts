@@ -10,7 +10,7 @@ const CartSlice = createSlice({
     initialState,
     reducers: {
         addToCart(state, action){
-            const itemIndex = state.cartItems.findIndex((item) => item._id === action.payload._id);
+            const itemIndex = state.cartItems.findIndex((item: any) => item._id === action.payload._id);
             if (itemIndex >= 0){
                 state.cartItems[itemIndex].cartQuantity +=1;
                 toast.info(`increased ${state.cartItems[itemIndex].name} cart quantity`, {position: "top-left"})
@@ -24,7 +24,7 @@ const CartSlice = createSlice({
         },
         removeFromCart(state, action){
             const nextCartItems = state.cartItems.filter(
-                (cartItem) => cartItem._id !== action.payload._id 
+                (cartItem : any) => cartItem._id !== action.payload._id 
             );
             state.cartItems = nextCartItems
             localStorage.setItem("cartItems", JSON.stringify(state.cartItems))
@@ -32,14 +32,14 @@ const CartSlice = createSlice({
         },
         decreaseCart(state, action){
             const itemIndex = state.cartItems.findIndex(
-                (cartItem) => cartItem._id === action.payload._id
+                (cartItem : any) => cartItem._id === action.payload._id
             )
             if (state.cartItems[itemIndex].cartQuantity > 1){
                 state.cartItems[itemIndex].cartQuantity -= 1;
             }
             else if (state.cartItems[itemIndex].cartQuantity === 1) {
                 const nextCartItems = state.cartItems.filter(
-                    (cartItem) => cartItem._id !== action.payload._id 
+                    (cartItem: any) => cartItem._id !== action.payload._id 
                 );
                 state.cartItems = nextCartItems
             }
@@ -47,7 +47,7 @@ const CartSlice = createSlice({
         },
         increaseCart(state, action){
             const itemIndex = state.cartItems.findIndex(
-                cartItem => cartItem._id === action.payload._id
+                (cartItem : any) => cartItem._id === action.payload._id
             )
                 state.cartItems[itemIndex].cartQuantity += 1;
             localStorage.setItem("cartItems", JSON.stringify(state.cartItems))

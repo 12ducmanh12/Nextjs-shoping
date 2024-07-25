@@ -4,6 +4,7 @@ import { Provider } from "react-redux";
 import { makeStore, AppStore } from "../lib/store";
 import { LoadUser } from "@/lib/features/authSlice";
 import { productsFetch } from "@/lib/features/productSlice";
+import { getTotals } from "@/lib/features/CartSlice";
 
 export default function StoreProvider({
   children,
@@ -15,6 +16,7 @@ export default function StoreProvider({
     storeRef.current = makeStore();
     storeRef.current.dispatch(LoadUser());
     storeRef.current.dispatch(productsFetch());
+    storeRef.current.dispatch(getTotals(null));
   }
 
   return <Provider store={storeRef.current}>{children}</Provider>;

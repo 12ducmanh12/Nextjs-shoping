@@ -1,9 +1,13 @@
 import Link from "next/link";
 import Container from "../Container";
 import SiginButton from "../SiginButton/SiginButton";
-// import { useSession } from "next-auth/react";
+import Search from "../ui/Search/Search";
+import Cart from "./components/Cart";
+
 function Header() {
-  // const { data: session } = useSession();
+  const handleSearch = () => {
+    console.log("first");
+  };
   return (
     <nav className="bg-black">
       <Container>
@@ -13,7 +17,9 @@ function Header() {
               OnlineShop
             </Link>
           </li>
+          <Search />
           <div className="flex gap-x-5 items-center">
+            <Cart />
             <SiginButton />
           </div>
         </ul>

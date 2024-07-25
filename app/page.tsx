@@ -14,8 +14,9 @@ interface items {
 }
 export default function Home() {
   let { items: data } = useAppSelector((state) => state.product);
+  const dispatch = useAppDispatch()
   const handleAddToCart = (items: items) => {
-    useAppDispatch(addToCart(items));
+    dispatch(addToCart(items));
   };
   return (
     <main className="flex pt-12 gap-x-5">
