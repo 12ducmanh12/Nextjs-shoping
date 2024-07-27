@@ -3,6 +3,19 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit"
 import { jwtDecode } from "jwt-decode";
 import {url} from "./api"
 
+const getLocalStorage = (key: string, initialValue: any) => {
+    if (typeof window === "undefined") {
+      return initialValue;
+    }
+  
+    try {
+      const item = window.localStorage.getItem(key);
+      return item ? item : initialValue;
+    } catch (error) {
+      console.error(error);
+      return initialValue;
+    }
+  };
 interface UserJWT {
     name: string;
     email: string;
@@ -16,7 +29,7 @@ interface UserLogin {
     password?: string | number;
 }
 const initialState = {
-    token: localStorage.getItem("token") || "",
+    token: getLocalStorage("token", ""),
     name: "",
     email: "",
     isAdmin: false,

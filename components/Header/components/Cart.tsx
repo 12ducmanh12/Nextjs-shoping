@@ -9,16 +9,15 @@ import Image from "next/image";
 function CartItems() {
   let cart = useAppSelector((state) => state.cart);
   return (
-
-      <Link href="/cart" className="relative mr-6">
-        <Image src={cartIcon} alt="cart icon"/>
-        <Badge
-          variant="destructive"
-          className="absolute top-0 -right-7 text-white"
-        >
-          {cart.cartItems.length}
-        </Badge>
-      </Link>
+    <Link href="/cart" className="relative mr-6">
+      <Image src={cartIcon} alt="cart icon" />
+      <Badge
+        variant="destructive"
+        className="absolute top-0 -right-7 text-white"
+      >
+        {cart.cartItems.length}
+      </Badge>
+    </Link>
   );
 }
 

@@ -14,7 +14,7 @@ interface items {
 }
 export default function Home() {
   let { items: data } = useAppSelector((state) => state.product);
-  const dispatch = useAppDispatch()
+  const dispatch = useAppDispatch();
   const handleAddToCart = (items: items) => {
     dispatch(addToCart(items));
   };

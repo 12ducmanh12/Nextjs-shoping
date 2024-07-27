@@ -9,7 +9,7 @@ function Header() {
     console.log("first");
   };
   return (
-    <nav className="bg-black">
+    <header className="bg-black">
       <Container>
         <ul className="flex flex-row justify-between items-center">
           <li>
@@ -24,7 +24,7 @@ function Header() {
           </div>
         </ul>
       </Container>
-    </nav>
+    </header>
   );
 }
 

@@ -1,7 +1,9 @@
 import type { Metadata } from "next";
 import { Inter as FontSans } from "next/font/google";
-// import "../globals.css";
+import "../globals.css";
+import Footer from "@/components/Footer";
 import Header from "@/components/Header";
+import Container from "@/components/Container";
 import Provider from "@/components/SiginButton/Provider";
 import StoreProvider from "../StoreProvider";
 import { cn } from "@/lib/utils";
@@ -23,14 +25,17 @@ export default function RootLayout({
     <html lang="en">
       <body
         className={cn(
-          "min-h-screen bg-background font-sans antialiased",
+          "min-h-screen bg-background font-sans antialiased flex flex-col",
           fontSans.variable
         )}
       >
         <StoreProvider>
           <Provider>
             <Header />
-            {children}
+            <div className="flex-auto">
+              <Container>{children}</Container>
+            </div>
+            <Footer />
           </Provider>
         </StoreProvider>
       </body>

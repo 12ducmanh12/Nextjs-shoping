@@ -12,7 +12,7 @@ function Sidenav() {
 
   const tabId = Number(searchParams.get("tab")) || 0;
   return (
-    <div className="pt-4 border-r border-gray-400 w-2/12">
+    <div className="pt-4 w-2/12">
       <p className="text-2xl font-normal mb-5 text-center">Admin</p>
       <div
         onClick={() => {

@@ -10,60 +10,14 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import {
-  ClearCart,
+  clearCart,
   decreaseCart,
   getTotals,
   increaseCart,
   removeFromCart,
 } from "@/lib/features/CartSlice";
 import { useAppSelector, useAppDispatch } from "@/lib/hooks";
-import Image from "next/image";
 import { useEffect } from "react";
-
-const invoices = [
-  {
-    invoice: "INV001",
-    paymentStatus: "Paid",
-    totalAmount: "$250.00",
-    paymentMethod: "Credit Card",
-  },
-  {
-    invoice: "INV002",
-    paymentStatus: "Pending",
-    totalAmount: "$150.00",
-    paymentMethod: "PayPal",
-  },
-  {
-    invoice: "INV003",
-    paymentStatus: "Unpaid",
-    totalAmount: "$350.00",
-    paymentMethod: "Bank Transfer",
-  },
-  {
-    invoice: "INV004",
-    paymentStatus: "Paid",
-    totalAmount: "$450.00",
-    paymentMethod: "Credit Card",
-  },
-  {
-    invoice: "INV005",
-    paymentStatus: "Paid",
-    totalAmount: "$550.00",
-    paymentMethod: "PayPal",
-  },
-  {
-    invoice: "INV006",
-    paymentStatus: "Pending",
-    totalAmount: "$200.00",
-    paymentMethod: "Bank Transfer",
-  },
-  {
-    invoice: "INV007",
-    paymentStatus: "Unpaid",
-    totalAmount: "$300.00",
-    paymentMethod: "Credit Card",
-  },
-];
 
 function Cart() {
   const cart = useAppSelector((state: any) => state.cart.cartItems);
@@ -78,7 +32,7 @@ function Cart() {
     dispatch(increaseCart(cartItem));
   }
   function handleClearCart() {
-    dispatch(ClearCart(null));
+    dispatch(clearCart(null));
   }
   useEffect(() => {
     dispatch(getTotals(null));
