@@ -8,6 +8,7 @@ interface Product {
   name: string;
   image: any;
   shortDesc: string;
+  longDesc: string;
   price: number;
   brand: string;
 }

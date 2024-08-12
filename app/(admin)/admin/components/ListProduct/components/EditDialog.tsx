@@ -1,3 +1,4 @@
+"use client";
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
@@ -23,13 +24,13 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Input } from "@/components/ui/input";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 
 const formSchema = z.object({
-  username: z.string().min(2).max(50),
+  productname: z.string().min(2).max(50),
   image: z.string(),
   brand: z
     .string({
@@ -45,12 +46,12 @@ export default function EditDialog({ open, changeOpen, product }: any) {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      username: "",
-      image: "",
-      brand: "",
-      shortDesc: "",
-      longDesc: "",
-      price: 0,
+      productname: product?.name || "",
+      image: product?.image || "",
+      brand: product?.brand || "",
+      shortDesc: product?.shortDesc || "",
+      longDesc: product?.longDesc || "",
+      price: product?.price || 0,
     },
   });
   const [imagePreview, setImagePreview] = useState("");
@@ -74,12 +75,27 @@ export default function EditDialog({ open, changeOpen, product }: any) {
       setImagePreview("");
     }
   };
+
   function onSubmit(values: z.infer<typeof formSchema>) {
     console.log(values);
   }
+  useEffect(() => {
+    if (product) {
+      form.reset({
+        productname: product?.name || "",
+        image: product?.image || "",
+        brand: product?.brand || "",
+        shortDesc: product?.shortDesc || "",
+        longDesc: product?.longDesc || "",
+        price: product?.price || 0,
+      });
+      setImagePreview(product?.image || "");
+    }
+  }, [product, form]);
+
   return (
     <Dialog open={open} onOpenChange={changeOpen}>
-      <DialogContent className="sm:max-w-[425px]">
+      <DialogContent className="sm:max-w-[900px]">
         <DialogHeader>
           <DialogTitle>Edit product</DialogTitle>
           <DialogDescription>
@@ -101,7 +117,7 @@ export default function EditDialog({ open, changeOpen, product }: any) {
                     <FormControl>
                       <Input
                         type="file"
-                        accept="image/"
+                        accept="image/*"
                         required
                         onChange={handleUploadImage}
                       />
@@ -112,12 +128,12 @@ export default function EditDialog({ open, changeOpen, product }: any) {
               />
               <FormField
                 control={form.control}
-                name="username"
+                name="productname"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Username</FormLabel>
+                    <FormLabel>Product Name</FormLabel>
                     <FormControl>
-                      <Input placeholder="Name" {...field} />
+                      <Input {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -134,7 +150,7 @@ export default function EditDialog({ open, changeOpen, product }: any) {
                       defaultValue={field.value}
                     >
                       <SelectTrigger>
-                        <SelectValue placeholder="Select brand" {...field} />
+                        <SelectValue>{field.value}</SelectValue>
                       </SelectTrigger>
                       <SelectContent>
                         <SelectItem value="samsung">Samsung</SelectItem>
@@ -155,6 +171,7 @@ export default function EditDialog({ open, changeOpen, product }: any) {
                     <FormControl>
                       <Input
                         type="number"
+                        value={field.value}
                         onChange={(e) => field.onChange(Number(e.target.value))}
                       />
                     </FormControl>
@@ -195,9 +212,7 @@ export default function EditDialog({ open, changeOpen, product }: any) {
           <div className="border border-gray-400 rounded-lg h-full flex-1">
             <div className="h-full flex justify-center items-center">
               {imagePreview ? (
-                <>
-                  <img src={imagePreview} className="p-1" />
-                </>
+                <img src={imagePreview} className="p-1" />
               ) : (
                 <>image preview</>
               )}

@@ -39,7 +39,10 @@ export type Product = {
   id: any;
   image: any;
   name: string;
+  brand: string;
   price: number;
+  shortDesc: string;
+  longDesc: string;
 };
 
 export const columns: ColumnDef<Product>[] = [
@@ -151,6 +154,9 @@ function ListProduct() {
       image: product.image.url,
       name: product.name,
       price: product.price,
+      shortDesc: product.shortDesc,
+      longDesc: product.longDesc,
+      brand: product.brand,
     };
   });
 
@@ -175,7 +181,6 @@ function ListProduct() {
 
   return (
     <div className="w-full">
-      <DeleteDialog />
       <div className="flex items-center py-4">
         <Input
           placeholder="Filter name products..."
